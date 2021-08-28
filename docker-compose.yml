@@ -9,6 +9,8 @@ services:
       - 3000:3000
     volumes:
       - ntopdata:/usr/local/var/ntop
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
 
 volumes:
   ntopdata:

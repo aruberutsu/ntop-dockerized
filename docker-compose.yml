@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  ntop-legacy:
+    env_file: passwd.env
+    build: .
+    ports:
+      - 2055:2055
+      - 3000:3000
+    volumes:
+      - ntopdata:/usr/local/var/ntop
+
+volumes:
+  ntopdata:

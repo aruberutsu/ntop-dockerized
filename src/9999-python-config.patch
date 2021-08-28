@@ -1,0 +1,13 @@
+Remove --embed flag from python-config.
+
+--- a/configure.in
++++ b/configure.in
+@@ -1463,7 +1463,7 @@
+   fi
+
+   if test "x$PYTHON_CONFIG" != "x"; then
+-    PYTHON_LIBS="`$PYTHON_CONFIG --libs --embed`"
++    PYTHON_LIBS="`$PYTHON_CONFIG --libs`"
+     if test "x$PYTHON_LIBS" = "x"; then
+       AC_MSG_RESULT(Python[-devel] support is present but misconfigured)
+     else

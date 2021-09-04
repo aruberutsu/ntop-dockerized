@@ -1,4 +1,4 @@
 #!/bin/bash
 
 /usr/local/bin/ntop --set-admin-password="$NTOP_PASSWD"
-/usr/local/bin/ntop --skip-version-check 1
+/usr/local/bin/ntop "$NTOP_ARGS"

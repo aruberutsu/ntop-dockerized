@@ -2,7 +2,7 @@ version: '3'
 
 services:
   ntop-legacy:
-    env_file: passwd.env
+    env_file: vars.env
     build: .
     ports:
       - 2055:2055

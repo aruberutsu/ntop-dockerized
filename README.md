@@ -5,8 +5,8 @@ Keep in mind this is a rather old codebase, but it's still adequate as a Netflow
 
 ## Installation
 * Clone the repo
-* Copy the file passwd-dist.env to passwd.env
-* Set your preferred admin password in the file passwd.env (5 characters minimum)
+* Copy the file vars-dist.env to vars.env
+* Set your preferred admin password in the file vars.env (5 characters minimum)
 * Build and run the image with docker-compose up -d
  
 ## Sources

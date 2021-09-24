@@ -1,0 +1,14 @@
+Fix skip-version-check from requiring an argument.
+Original patch: https://sourceforge.net/p/ntop/feature-requests/42/
+
+--- src/prefs.c.orig
++++ src/prefs.c
+@@ -162,7 +162,7 @@
+   { "disable-ndpi",                     no_argument,       NULL, 146 },
+   { "disable-python",                   no_argument,       NULL, 147 },
+   
+-  { "skip-version-check",               required_argument, NULL, 150 },
++  { "skip-version-check",               no_argument,       NULL, 150 },
+   { "known-subnets",                    required_argument, NULL, 151 },
+ 
+   {NULL, 0, NULL, 0}

@@ -1,4 +1,4 @@
-FROM rockylinux/rockylinux:8
+FROM almalinux/almalinux:8 as builder
 COPY entrypoint.sh /entrypoint.sh
 COPY src /src
 RUN dnf -y update && \
@@ -27,5 +27,17 @@ RUN dnf -y update && \
     dnf -y grouperase "Development tools" && \
     dnf clean all && \
     rm -rf /src && chmod +x /entrypoint.sh && chown root:nobody /usr/local/var/ntop && chmod 775 /usr/local/var/ntop
+
+FROM almalinux/8-minimal
+RUN microdnf -y update && \
+    microdnf -y install epel-release && \
+    microdnf -y install python2 libpcap gdbm zlib geoip graphviz rrdtool openssl wget && \
+    alternatives --set python /usr/bin/python2 && \
+    ln -s /usr/bin/python2-config /usr/bin/python-config && \
+    ln -s /usr/lib64/librrd.so /usr/lib64/librrd_th.so && \
+    microdnf clean all
+
+COPY --from=builder /usr/local /usr/local
+COPY --from=builder /entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]

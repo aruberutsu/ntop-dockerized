@@ -19,6 +19,7 @@ RUN dnf -y update && \
     patch -p1 < ../0001-plugins-Makefile.am-fix-for-automake-1.16.1.patch && \
     patch -p1 < ../fix-missing-return-from-non-void-function.patch && \
     patch -p1 < ../embed-libs.patch && \
+    patch -p1 < ../9996-no-version-check.patch && \
     patch -p1 < ../9997-nDPI-make-j.patch && \
     patch -p1 < ../9998-ntop-3.3-verchk.patch && \
     patch -p1 < ../9999-python-config.patch && \

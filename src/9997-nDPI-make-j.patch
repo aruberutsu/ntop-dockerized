@@ -1,0 +1,11 @@
+Use all cores on build.
+
+--- a/autogen.sh
++++ b/autogen.sh
+@@ -450,7 +450,7 @@
+     echo "nDPI already compiled"
+ else
+     echo "10. Compiling nDPI..."
+-    cd nDPI; ./configure --with-pic; make; cd ..
++    cd nDPI; ./configure --with-pic; make -j$(nproc); cd ..
+ fi

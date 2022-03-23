@@ -1,22 +1,17 @@
-Get rid of the version check for good.
+Get rid of the version check for good. 
+It's very unlikely that it'll work again.
 
---- a/globals-defines.h
-+++ b/globals-defines.h
-@@ -875,7 +875,7 @@
- /*
-  * This is the URL to request the latest version information
-  */
--#define CONST_VERSIONCHECK_SITE             "version.ntop.org"
-+#define CONST_VERSIONCHECK_SITE             "127.0.0.1"
- #define CONST_VERSIONCHECK_DOCUMENT         "version.xml"
- #define CONST_VERSIONCHECK_URL              CONST_VERSIONCHECK_SITE "/" CONST_VERSIONCHECK_DOCUMENT
- 
-@@ -884,7 +884,7 @@
-  *   Why the weird value?  So every instance in the world, which is started @ midnight by a
-  *   cron job doesn't hit the web server at exactly the same time every nn days...
-  */
--#define CONST_VERSIONRECHECK_INTERVAL       1300000   /* 15 days 1 hour 6 minutes 40 seconds */
-+#define CONST_VERSIONRECHECK_INTERVAL       130000000
- 
- /* Other choices: */
- //#define CONST_VERSIONRECHECK_INTERVAL        3600   /* 1 hour */
+--- a/globals-core.c
++++ b/globals-core.c
+@@ -694,11 +694,12 @@
+        || (myGlobals.localityDisplayPolicy > showOnlyReceived))
+       myGlobals.localityDisplayPolicy = showSentReceived;
+   }
+-
++#if 0
+   if(myGlobals.runningPref.skipVersionCheck != TRUE) {
+     pthread_t myThreadId;
+     createThread(&myThreadId, checkVersion, NULL);
+   }
++#endif
+ }

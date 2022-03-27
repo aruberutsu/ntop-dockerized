@@ -3,7 +3,21 @@ A Docker image for the classic ntop (not ntopng) traffic analyzer. As far as I k
 
 Keep in mind this is a rather old codebase, but it's still adequate as a Netflow collector and traffic analyzer. Use at your own risk.
 
-## Installation
+## Usage
+```
+docker run \
+    -p 2055:2055 -p 3000:3000 \
+    -e "NTOP_PASSWD=YourNtopAdminPasswd" \
+    -e "NTOP_ARGS=--extra-ntop-arguments" \
+    -e "UPDATE_GEOIP=no" \
+    -v ntopdata:/usr/local/var/ntop \
+    -v /etc/localtime:/etc/localtime:ro \
+    docker.io/aruberutsu/ntop-legacy:latest
+```
+
+Read [vars-dist.env](https://github.com/aruberutsu/ntop-dockerized/blob/master/vars-dist.env) or [the README on docker hub](https://hub.docker.com/repository/docker/aruberutsu/ntop-legacy) for details on the variables.
+
+## Usage (alternative, with local build and compose)
 * Clone the repo
 * Copy the file vars-dist.env to vars.env
 * Set your preferred admin password in the file vars.env (5 characters minimum)

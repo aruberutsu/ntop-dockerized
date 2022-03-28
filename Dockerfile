@@ -26,6 +26,10 @@ RUN dnf -y update && \
     ldconfig && cd /src/ntop-5.0.1 && cat MANIFESTO && ./autogen.sh && \
     make -j$(nproc) && \
     make install && \
+    mv /usr/local/etc/ntop/GeoIPASNum.dat /usr/local/var/ntop && \
+    mv /usr/local/etc/ntop/GeoLiteCity.dat /usr/local/var/ntop && \
+    ln -s /usr/local/var/ntop/GeoIPASNum.dat /usr/local/etc/ntop/GeoIPASNum.dat && \
+    ln -s /usr/local/var/ntop/GeoLiteCity.dat /usr/local/etc/ntop/GeoLiteCity.dat && \
     dnf -y grouperase "Development tools" && \
     dnf clean all && \
     rm -rf /src && chmod +x /entrypoint.sh && chown root:nobody /usr/local/var/ntop && chmod 775 /usr/local/var/ntop

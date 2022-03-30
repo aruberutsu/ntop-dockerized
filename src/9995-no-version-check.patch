@@ -1,0 +1,20 @@
+Get rid of the version check for good. 
+It's very unlikely that it'll work again.
+
+--- a/main.c
++++ b/main.c
+@@ -695,12 +695,13 @@ int main(int argc, char *argv[]) {
+   while(myGlobals.ntopRunState == FLAG_NTOPSTATE_RUN) {
+     // traceEvent(CONST_TRACE_ERROR, "event_loop() returned %d", rc);
+     ntopSleepWhileSameState(5);
+-
++#if 0
+     /* Periodic recheck of the version status */
+     if((myGlobals.checkVersionStatusAgain > 0) &&
+        (time(NULL) > myGlobals.checkVersionStatusAgain) &&
+        (myGlobals.ntopRunState == FLAG_NTOPSTATE_RUN))
+       checkVersion(NULL);
++#endif
+   }
+ 
+   traceEvent(CONST_TRACE_INFO, "THREADMGMT[t%lu]: Main thread shutting down",

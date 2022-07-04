@@ -1,5 +1,4 @@
 FROM almalinux/almalinux:8 as builder
-COPY entrypoint.sh /entrypoint.sh
 COPY src /src
 RUN dnf -y update && \
     dnf -y groupinstall "Development tools" && \
@@ -31,7 +30,7 @@ RUN dnf -y update && \
     ln -s /usr/local/var/ntop/GeoLiteCity.dat /usr/local/etc/ntop/GeoLiteCity.dat && \
     dnf -y grouperase "Development tools" && \
     dnf clean all && \
-    rm -rf /src && chmod +x /entrypoint.sh && chown root:nobody /usr/local/var/ntop && chmod 775 /usr/local/var/ntop
+    rm -rf /src && chown root:nobody /usr/local/var/ntop && chmod 775 /usr/local/var/ntop
 
 FROM almalinux/8-minimal
 RUN microdnf -y update && \
@@ -43,6 +42,6 @@ RUN microdnf -y update && \
     microdnf clean all
 
 COPY --from=builder /usr/local /usr/local
-COPY --from=builder /entrypoint.sh /entrypoint.sh
+COPY entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]

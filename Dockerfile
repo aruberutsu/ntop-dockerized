@@ -1,4 +1,4 @@
-FROM almalinux/almalinux:8 as builder
+FROM quay.io/almalinuxorg/8-minimal as builder
 COPY src /src
 RUN dnf -y update && \
     dnf -y groupinstall "Development tools" && \
@@ -33,7 +33,7 @@ RUN dnf -y update && \
     dnf clean all && \
     rm -rf /src && chown root:nobody /usr/local/var/ntop && chmod 775 /usr/local/var/ntop
 
-FROM almalinux/8-minimal
+FROM quay.io/almalinuxorg/8-minimal
 RUN microdnf -y update && \
     microdnf -y install epel-release && \
     microdnf -y install python2 libpcap gdbm zlib geoip graphviz rrdtool openssl && \

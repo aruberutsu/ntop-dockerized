@@ -1,10 +1,11 @@
 FROM quay.io/almalinuxorg/8-minimal as builder
 COPY src /src
-RUN dnf -y update && \
-    dnf -y groupinstall "Development tools" && \
-    dnf -y config-manager --set-enabled powertools && \
-    dnf -y install epel-release && \
-    dnf -y install patch libtool automake autoconf python2-devel libpcap-devel gdbm-devel zlib-devel geoip-devel graphviz-devel rrdtool rrdtool-devel openssl-devel && \
+RUN microdnf -y update && \
+    sed -z -i 's/enabled=0/enabled=1/' /etc/yum.repos.d/almalinux-powertools.repo && \
+    curl -o /dev/shm/epel-release-latest-8.noarch.rpm \
+        https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
+    rpm -ivh /dev/shm/epel-release-latest-8.noarch.rpm && \
+    microdnf -y install gcc make patch libtool automake autoconf python2-devel libpcap-devel gdbm-devel zlib-devel geoip-devel graphviz-devel rrdtool rrdtool-devel openssl-devel && \
     alternatives --set python /usr/bin/python2 && \
     ln -s /usr/bin/python2-config /usr/bin/python-config && \
     ln -s /usr/lib64/librrd.so /usr/lib64/librrd_th.so && \
@@ -29,13 +30,14 @@ RUN dnf -y update && \
     mv /usr/local/etc/ntop/GeoLiteCity.dat /usr/local/var/ntop && \
     ln -s /usr/local/var/ntop/GeoIPASNum.dat /usr/local/etc/ntop/GeoIPASNum.dat && \
     ln -s /usr/local/var/ntop/GeoLiteCity.dat /usr/local/etc/ntop/GeoLiteCity.dat && \
-    dnf -y grouperase "Development tools" && \
-    dnf clean all && \
+    microdnf clean all && \
     rm -rf /src && chown root:nobody /usr/local/var/ntop && chmod 775 /usr/local/var/ntop
 
 FROM quay.io/almalinuxorg/8-minimal
 RUN microdnf -y update && \
-    microdnf -y install epel-release && \
+    curl -o /dev/shm/epel-release-latest-8.noarch.rpm \
+        https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
+    rpm -ivh /dev/shm/epel-release-latest-8.noarch.rpm && \
     microdnf -y install python2 libpcap gdbm zlib geoip graphviz rrdtool openssl && \
     alternatives --set python /usr/bin/python2 && \
     ln -s /usr/bin/python2-config /usr/bin/python-config && \

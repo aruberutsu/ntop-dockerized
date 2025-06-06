@@ -42,6 +42,7 @@ RUN microdnf -y update && \
     alternatives --set python /usr/bin/python2 && \
     ln -s /usr/bin/python2-config /usr/bin/python-config && \
     ln -s /usr/lib64/librrd.so /usr/lib64/librrd_th.so && \
+    pip2.7 install --no-cache-dir mako && \
     microdnf clean all
 
 COPY --from=builder /usr/local /usr/local
